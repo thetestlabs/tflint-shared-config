@@ -86,6 +86,10 @@ rule "terraform_unused_required_providers" {
 # Enables the AWS plugin to perform checks on AWS specific resources
 plugin "aws" {
   enabled = true
-  version = "0.42.0"
+  version = "0.45.0"
   source  = "github.com/terraform-linters/tflint-ruleset-aws"
+  deep_check = false
+  access_key = ${{ secrets.AWS_ACCESS_KEY_ID }}
+  secret_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  region     = "eu-west-2"
 }
