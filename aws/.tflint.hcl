@@ -82,13 +82,23 @@ rule "terraform_unused_required_providers" {
   enabled = true
 }
 
+# Disallow specifying a git or mercurial repository as a module source without pinning to a version.
+rule "terraform_module_pinned_source" {
+  enabled = true
+}
+
+# Checks that Terraform modules sourced from a registry specify a version.
+rule "terraform_module_version" {
+  enabled = true
+}
+
 
 # Enables the AWS plugin to perform checks on AWS specific resources
 plugin "aws" {
   enabled = true
   version = "0.45.0"
   source  = "github.com/terraform-linters/tflint-ruleset-aws"
-  deep_check = false
+  deep_check = true
   access_key = ${{ secrets.AWS_ACCESS_KEY_ID }}
   secret_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   region     = "eu-west-2"
